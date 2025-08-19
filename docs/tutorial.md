@@ -2,13 +2,13 @@
 
 This page contains a complete tutorial on how to create your project.
 
-## Step 1: Install uv
+## Step 1: Install Poetry
 
-To start, we will need to install `uv`. The instructions to install uv can be found
-[here](https://docs.astral.sh/uv/#getting-started). For MacOS or Linux;
+To start, we will need to install `Poetry`. The instructions to install Poetry can be found
+[here](https://python-poetry.org/docs/#installation). For MacOS or Linux:
 
 ```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
+curl -sSL https://install.python-poetry.org | python3 -
 ```
 
 ## Step 2: Generate your project
@@ -17,7 +17,8 @@ On your local machine, navigate to the directory in which you want to
 create a project directory, and run the following command:
 
 ```bash
-uvx cookiecutter https://github.com/fpgmaas/cookiecutter-uv.git
+pip install cookiecutter
+cookiecutter https://github.com/apajon/cookiecutter-python-poetry-template.git
 ```
 
 For an explanation of the prompt arguments, see
@@ -49,7 +50,7 @@ git push -u origin main
 
 Initially, the CI/CD pipeline will fail for two reasons:
 
-- The project does not yet contain a `uv.lock` file
+- The project does not yet contain a `poetry.lock` file
 - There are a few formatting issues in the project
 
 To fix that, we first install the environment and the pre-commit hooks with:
@@ -58,14 +59,14 @@ To fix that, we first install the environment and the pre-commit hooks with:
 make install
 ```
 
-This will generate the `uv.lock` file
+This will generate the `poetry.lock` file
 
 ### Step 6: Run the pre-commit hooks
 
 Now, to resolve the formatting issues, let's run the pre-commit hooks:
 
 ```bash
-uv run pre-commit run -a
+poetry run pre-commit run -a
 ```
 
 ### 7. Commit the changes

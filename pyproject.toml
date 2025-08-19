@@ -1,10 +1,10 @@
 [project]
-name = "cookiecutter-uv"
+name = "cookiecutter-poetry"
 version = "0.0.1"
-description = "A python cookiecutter application to create a new python project that uses uv to manage its dependencies."
+description = "A python cookiecutter application to create a new python project that uses Poetry to manage its dependencies."
 authors = [{ name = "Florian Maas", email = "fpgmaas@gmail.com" }]
 readme = "README.md"
-keywords = ['cookiecutter', 'template', 'uv']
+keywords = ['cookiecutter', 'template', 'poetry']
 requires-python = ">=3.9,<4.0"
 dependencies = [
   "cookiecutter>=2.1.1"
@@ -26,9 +26,9 @@ classifiers = [
 
 
 [project.urls]
-Repository = "https://github.com/fpgmaas/cookiecutter-uv"
-Documentation = "https://fpgmaas.github.io/cookiecutter-uv/"
-Homepage = "https://fpgmaas.github.io/cookiecutter-uv/"
+Repository = "https://github.com/apajon/cookiecutter-python-poetry-template"
+Documentation = "https://apajon.github.io/cookiecutter-python-poetry-template/"
+Homepage = "https://apajon.github.io/cookiecutter-python-poetry-template/"
 
 [dependency-groups]
 dev = [

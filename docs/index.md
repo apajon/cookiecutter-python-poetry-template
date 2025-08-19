@@ -12,7 +12,10 @@
 
 This is a modern Cookiecutter template that can be used to initiate a Python project with all the necessary tools for development, testing, and deployment. It supports the following features:
 
-- [uv](https://docs.astral.sh/uv/) for dependency management
+- [Poetry](https://python-poetry.org/) for dependency management
+- [Black](https://black.readthedocs.io/) for code formatting
+- [tbump](https://github.com/your-tools/tbump) for automated version bumping and tagging
+- Custom scripts directory with examples for local pre-commit hooks
 - Supports both [src and flat layout](https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/).
 - CI/CD with [GitHub Actions](https://github.com/features/actions)
 - Pre-commit hooks with [pre-commit](https://pre-commit.com/)
@@ -20,11 +23,11 @@ This is a modern Cookiecutter template that can be used to initiate a Python pro
 - Publishing to [PyPI](https://pypi.org) by creating a new release on GitHub
 - Testing and coverage with [pytest](https://docs.pytest.org/en/7.1.x/) and [codecov](https://about.codecov.io/)
 - Documentation with [MkDocs](https://www.mkdocs.org/)
-- Compatibility testing for multiple versions of Python with [tox-uv](https://github.com/tox-dev/tox-uv)
 - Containerization with [Docker](https://www.docker.com/) or [Podman](https://podman.io/)
 - Development environment with [VSCode devcontainers](https://code.visualstudio.com/docs/devcontainers/containers)
+- VSCode settings for optimal development experience
 
-An example of a repository generated with this package can be found [here](https://github.com/fpgmaas/cookiecutter-uv-example).
+An example of a repository generated with this package can be found [here](https://github.com/apajon/cookiecutter-python-poetry-example).
 
 ## Quickstart
 
@@ -32,14 +35,14 @@ On your local machine, navigate to the directory in which you want to
 create a project directory, and run the following command:
 
 ```bash
-uvx cookiecutter https://github.com/fpgmaas/cookiecutter-uv.git
+pip install cookiecutter
+cookiecutter https://github.com/apajon/cookiecutter-python-poetry-template.git
 ```
 
-or if you don't have `uv` installed yet:
+or with pipx:
 
 ```bash
-pip install cookiecutter
-cookiecutter https://github.com/fpgmaas/cookiecutter-uv.git
+pipx run cookiecutter https://github.com/apajon/cookiecutter-python-poetry-template.git
 ```
 
 Follow the prompts to configure your project. Once completed, a new directory containing your project will be created. Then navigate into your newly created project directory and follow the instructions in the `README.md` to complete the setup of your project.

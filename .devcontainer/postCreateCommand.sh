@@ -1,10 +1,10 @@
 #! /usr/bin/env bash
 
-# Install uv
-curl -LsSf https://astral.sh/uv/install.sh | sh
+# Install Poetry
+curl -sSL https://install.python-poetry.org | python3 -
 
 # Install Dependencies
-uv sync
+poetry install
 
 # Install pre-commit hooks
-uv run pre-commit install --install-hooks
+poetry run pre-commit install --install-hooks
