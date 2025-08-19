@@ -14,9 +14,40 @@ repos:
       - id: end-of-file-fixer
       - id: trailing-whitespace
 
+  - repo: https://github.com/psf/black
+    rev: "24.1.1"
+    hooks:
+      - id: black
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: "v0.12.7"
     hooks:
       - id: ruff-check
         args: [ --exit-non-zero-on-fix ]
       - id: ruff-format
+
+{% if cookiecutter.type_checker == "mypy" -%}
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: "v1.8.0"
+    hooks:
+      - id: mypy
+{%- endif %}
+
+# Example of local hooks for custom scripts (disabled by default)
+# Uncomment the following section to enable custom hooks:
+#
+# - repo: local
+#   hooks:
+#     - id: custom-bash-script
+#       name: Custom Bash Script
+#       entry: ./scripts/myscript.sh
+#       language: system
+#       files: \.py$
+#       # pass_filenames: false  # Uncomment if script doesn't need filenames
+#
+#     - id: custom-python-script
+#       name: Custom Python Script
+#       entry: python ./scripts/myscript.py
+#       language: python
+#       files: \.py$
+#       # pass_filenames: false  # Uncomment if script doesn't need filenames

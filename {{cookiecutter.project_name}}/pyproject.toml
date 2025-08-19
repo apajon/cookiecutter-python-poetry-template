@@ -1,57 +1,44 @@
-[project]
+[tool.poetry]
 name = "{{cookiecutter.project_name}}"
 version = "0.0.1"
 description = "{{cookiecutter.project_description}}"
-authors = [{ name = "{{cookiecutter.author}}", email = "{{cookiecutter.email}}" }]
+authors = ["{{cookiecutter.author}} <{{cookiecutter.email}}>"]
 readme = "README.md"
-keywords = ['python']
-requires-python = ">=3.9,<4.0"
-classifiers = [
-    "Intended Audience :: Developers",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-]
+keywords = ["python"]
+{% if cookiecutter.layout == "src" -%}
+packages = [{include = "{{cookiecutter.project_slug}}", from = "src"}]
+{%- else -%}
+packages = [{include = "{{cookiecutter.project_slug}}"}]
+{%- endif %}
 
-[project.urls]
+[tool.poetry.urls]
 Homepage = "https://{{cookiecutter.author_github_handle}}.github.io/{{cookiecutter.project_name}}/"
 Repository = "https://github.com/{{cookiecutter.author_github_handle}}/{{cookiecutter.project_name}}"
 Documentation = "https://{{cookiecutter.author_github_handle}}.github.io/{{cookiecutter.project_name}}/"
 
-[dependency-groups]
-dev = [
-    "pytest>=7.2.0",
-    "pre-commit>=2.20.0",
-    "tox-uv>=1.11.3",
-    {% if cookiecutter.deptry == 'y' %}"deptry>=0.23.0",{% endif %}
-    {% if cookiecutter.type_checker == "mypy" -%}
-        "mypy>=0.991",
-    {%- elif cookiecutter.type_checker == "ty" -%}
-        "ty>=0.0.1a16",
-    {%- endif %}
-    {% if cookiecutter.codecov == 'y' %}"pytest-cov>=4.0.0",{% endif %}
-    "ruff>=0.11.5",
-    {% if cookiecutter.mkdocs == 'y' %}"mkdocs>=1.4.2",
-    "mkdocs-material>=8.5.10",
-    "mkdocstrings[python]>=0.26.1",{% endif %}
-]
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=7.2.0"
+pre-commit = ">=2.20.0"
+black = ">=23.0.0"
+tbump = ">=6.9.0"
+{% if cookiecutter.deptry == 'y' %}deptry = ">=0.23.0"{% endif %}
+{% if cookiecutter.type_checker == "mypy" -%}
+mypy = ">=0.991"
+{%- elif cookiecutter.type_checker == "ty" -%}
+ty = ">=0.0.1a16"
+{%- endif %}
+{% if cookiecutter.codecov == 'y' %}pytest-cov = ">=4.0.0"{% endif %}
+ruff = ">=0.11.5"
+{% if cookiecutter.mkdocs == 'y' %}mkdocs = ">=1.4.2"
+mkdocs-material = ">=8.5.10"
+mkdocstrings = {extras = ["python"], version = ">=0.26.1"}{% endif %}
 
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-{% if cookiecutter.layout == "src" -%}
-[tool.hatch.build.targets.wheel]
-packages = ["src/{{cookiecutter.project_slug}}"]
-{%- else -%}
-[tool.hatch.build.targets.wheel]
-packages = ["{{cookiecutter.project_slug}}"]
-{%- endif %}
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
 {% if cookiecutter.type_checker == "mypy" -%}
 [tool.mypy]
@@ -74,6 +61,24 @@ show_error_codes = true
 python = "./.venv"
 python-version = "3.9"
 {%- endif %}
+
+[tool.black]
+line-length = 120
+target-version = ["py39", "py310", "py311", "py312", "py313"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -128,6 +133,29 @@ ignore = [
 
 [tool.ruff.format]
 preview = true
+
+[tool.tbump]
+# tbump configuration for automated version bumping
+github_url = "https://github.com/{{cookiecutter.author_github_handle}}/{{cookiecutter.project_name}}"
+
+[tool.tbump.version]
+current = "0.0.1"
+regex = '''
+  (?P<major>\d+)
+  \.
+  (?P<minor>\d+)
+  \.
+  (?P<patch>\d+)
+  '''
+
+[tool.tbump.git]
+message_template = "Bump to {new_version}"
+tag_template = "v{new_version}"
+push = true
+
+[[tool.tbump.file]]
+src = "pyproject.toml"
+search = 'version = "{current_version}"'
 
 {% if cookiecutter.codecov == "y" -%}
 [tool.coverage.report]
