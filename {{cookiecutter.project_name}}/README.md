@@ -185,6 +185,26 @@ Documentation structure:
 - `mkdocs.yml` - MkDocs configuration
 - Automatically generates API docs from docstrings
 - Material theme with search, navigation, and dark mode
+
+**Auto-documentation Generation:**
+The project includes an automated documentation generator that runs as a pre-commit hook:
+
+```bash
+# Manually generate documentation
+python scripts/generate_docs.py
+
+# Generate with individual module pages
+python scripts/generate_docs.py --individual
+
+# Update mkdocs navigation
+python scripts/generate_docs.py --update-nav
+```
+
+The generator automatically:
+- Discovers all Python modules in your package
+- Creates `docs/modules.md` with mkdocstrings references
+- Supports both src/ and flat project layouts
+- Runs automatically on every commit via pre-commit hooks
 {%- endif %}
 
 ### Testing with tox
