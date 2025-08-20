@@ -1,5 +1,13 @@
 {
     "python.defaultInterpreterPath": "./.venv/bin/python",
+    "python.autoComplete.extraPaths": [
+        ".venv/lib/python3.12/site-packages",
+        "src"
+    ],
+    "python.analysis.extraPaths": [
+        ".venv/lib/python3.12/site-packages",
+        "src"
+    ],
     "python.formatting.provider": "black",
     "python.formatting.blackArgs": [
         "--line-length=120"
