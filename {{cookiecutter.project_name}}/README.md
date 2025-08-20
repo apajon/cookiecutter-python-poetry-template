@@ -133,6 +133,139 @@ This project includes VSCode settings for:
 - pytest test discovery
 - Python interpreter configuration
 
+## Development Tools and Environment
+
+This template includes several powerful development tools to enhance your workflow:
+
+### Dependency Management with deptry
+{% if cookiecutter.deptry == 'y' -%}
+
+[deptry](https://github.com/fpgmaas/deptry) is included to check for unused and missing dependencies:
+
+```bash
+# Check for unused dependencies
+poetry run deptry .
+
+# Check with custom configuration
+poetry run deptry . --config pyproject.toml
+```
+
+Configure deptry in your `pyproject.toml`:
+```toml
+[tool.deptry]
+skip_obsolete = false
+skip_missing = false
+skip_transitive = false
+skip_misplaced_dev = false
+ignore_missing = []
+ignore_obsolete = []
+ignore_transitive = []
+ignore_misplaced_dev = []
+```
+{%- endif %}
+
+### Documentation with MkDocs
+{% if cookiecutter.mkdocs == 'y' -%}
+
+This project uses [MkDocs](https://www.mkdocs.org/) with Material theme for documentation:
+
+```bash
+# Serve documentation locally
+poetry run mkdocs serve
+
+# Build documentation
+poetry run mkdocs build
+
+# Deploy to GitHub Pages
+poetry run mkdocs gh-deploy
+```
+
+Documentation structure:
+- `docs/` - Documentation source files
+- `mkdocs.yml` - MkDocs configuration
+- Automatically generates API docs from docstrings
+- Material theme with search, navigation, and dark mode
+{%- endif %}
+
+### Testing with tox
+
+[tox](https://tox.readthedocs.io/) provides testing across multiple Python versions:
+
+```bash
+# Run tests on all Python versions
+poetry run tox
+
+# Run tests on specific Python version
+poetry run tox -e py312
+
+# Run with coverage
+poetry run tox -e py312 -- --cov
+```
+
+The `tox.ini` configuration:
+- Tests on Python 3.12 and 3.13
+- Uses Poetry for dependency management
+- Runs pytest with coverage
+- Includes type checking with mypy/ty
+- Integrates with GitHub Actions for CI
+
+### Development Container (devcontainer)
+{% if cookiecutter.devcontainer == 'y' -%}
+
+The project includes a development container configuration for consistent development environments:
+
+**Features:**
+- Pre-configured Python 3.12 environment
+- Poetry pre-installed and configured
+- All development dependencies included
+- VSCode extensions for Python development
+- Git configuration and pre-commit hooks
+
+**Usage:**
+1. Open in GitHub Codespaces, or
+2. Use VSCode "Reopen in Container" command, or
+3. Use the Dev Containers extension
+
+**Configuration files:**
+- `.devcontainer/devcontainer.json` - Container configuration
+- `.devcontainer/Dockerfile` - Custom container setup (if needed)
+
+The devcontainer automatically:
+- Installs Poetry and dependencies
+- Sets up pre-commit hooks
+- Configures Python interpreter
+- Installs recommended VSCode extensions
+{%- endif %}
+
+### Docker Support
+{% if cookiecutter.dockerfile == 'y' -%}
+
+The included `Dockerfile` provides a production-ready container:
+
+```bash
+# Build the Docker image
+docker build -t {{cookiecutter.project_name}} .
+
+# Run the container
+docker run {{cookiecutter.project_name}}
+
+# Run with volume mount for development
+docker run -v $(pwd):/app {{cookiecutter.project_name}}
+```
+
+**Dockerfile features:**
+- Based on Python 3.12 slim image
+- Poetry for dependency management
+- Multi-stage build for optimization
+- Non-root user for security
+- Optimized for production deployment
+
+**Build optimization:**
+- Dependencies installed before code copy
+- Poetry cache excluded from final image
+- Only production dependencies in final stage
+{%- endif %}
+
 ## Releasing a new version
 
 {% if cookiecutter.publish_to_pypi == "y" -%}

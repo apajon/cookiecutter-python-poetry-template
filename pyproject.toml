@@ -133,3 +133,8 @@ ignore = [
 
 [tool.ruff.lint.isort]
 required-imports = ["from __future__ import annotations"]
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.4.1"
+pytest-cookies = "^0.7.0"
+
