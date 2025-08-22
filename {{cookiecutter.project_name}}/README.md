@@ -117,6 +117,27 @@ poetry run tbump --dry-run 1.2.3
 poetry version patch|minor|major
 ```
 
+**Simplified Version Bumping with tbump.sh:**
+
+Use the included `scripts/tbump.sh` script for easier semantic version bumping:
+
+```bash
+# Bump patch version (0.1.0 → 0.1.1)
+./scripts/tbump.sh patch
+
+# Bump minor version with push (0.1.1 → 0.2.0)
+./scripts/tbump.sh minor --push
+
+# Dry-run a major version bump (0.2.0 → 1.0.0)
+./scripts/tbump.sh major --dry-run
+```
+
+The script automatically:
+- Gets the current version from tbump
+- Calculates the new version based on semantic versioning rules
+- Calls tbump with the appropriate version and flags
+- Supports `--push` to push changes and `--dry-run` for testing
+
 ### Custom Scripts
 
 Example custom scripts are available in the `scripts/` directory. To enable them in pre-commit:
