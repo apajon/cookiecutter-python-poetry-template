@@ -11,11 +11,13 @@
 - **Github repository**: <https://github.com/{{cookiecutter.author_github_handle}}/{{cookiecutter.project_name}}/>
 - **Documentation** <https://{{cookiecutter.author_github_handle}}.github.io/{{cookiecutter.project_name}}/>
 
-## Getting started with your project
+## Quick Start
+
+This project uses **Poetry** for dependency management and includes essential development tools to help you get started quickly.
 
 ### 1. Create a New Repository
 
-First, create a repository on GitHub with the same name as this project, and then run the following commands:
+First, create a repository on GitHub with the same name as this project, and then run:
 
 ```bash
 git init -b main
@@ -25,287 +27,180 @@ git remote add origin git@github.com:{{cookiecutter.author_github_handle}}/{{coo
 git push -u origin main
 ```
 
-### 2. Set Up Your Development Environment
+### 2. Install Dependencies
 
-Then, install the environment and the pre-commit hooks with
+Install the project and pre-commit hooks:
 
 ```bash
 make install
 ```
 
-This will also generate your `poetry.lock` file
+This installs all dependencies and sets up pre-commit hooks (Black, Ruff, {{cookiecutter.type_checker}}).
 
-### 3. Run the pre-commit hooks
+### 3. Fix Initial Formatting
 
-Initially, the CI/CD pipeline might be failing due to formatting issues. To resolve those run:
+Run formatting and checks to prepare for CI/CD:
 
 ```bash
 poetry run pre-commit run -a
-```
-
-### 4. Commit the changes
-
-Lastly, commit the changes made by the two steps above to your repository.
-
-```bash
 git add .
 git commit -m 'Fix formatting issues'
 git push origin main
 ```
 
-You are now ready to start development on your project!
-The CI/CD pipeline will be triggered when you open a pull request, merge to main, or when you create a new release.
+You are now ready to start development! The CI/CD pipeline will run on pull requests, merges to main, and new releases.
 
-To finalize the set-up for publishing to PyPI, see [here](https://apajon.github.io/cookiecutter-python-poetry-template/features/publishing/#set-up-for-pypi).
-For activating the automatic documentation with MkDocs, see [here](https://apajon.github.io/cookiecutter-python-poetry-template/features/mkdocs/#enabling-the-documentation-on-github).
-To enable the code coverage reports, see [here](https://apajon.github.io/cookiecutter-python-poetry-template/features/codecov/).
+{% if cookiecutter.publish_to_pypi == "y" -%}
+To finalize publishing to PyPI, see [here](https://apajon.github.io/cookiecutter-python-poetry-template/features/publishing/#set-up-for-pypi).
+{%- endif %}
+{% if cookiecutter.mkdocs == "y" -%}
+To enable automatic documentation with MkDocs, see [here](https://apajon.github.io/cookiecutter-python-poetry-template/features/mkdocs/#enabling-the-documentation-on-github).
+{%- endif %}
+{% if cookiecutter.codecov == "y" -%}
+To enable code coverage reports, see [here](https://apajon.github.io/cookiecutter-python-poetry-template/features/codecov/).
+{%- endif %}
 
-## Development Commands
+## Essential Development Tools
 
-This project uses Poetry for dependency management and includes several useful development commands:
+This project includes essential tools for professional Python development:
 
-### Installing Dependencies
+- **Poetry** - Dependency management
+- **Black** - Code formatting
+- **Ruff** - Fast linting
+- **{{cookiecutter.type_checker}}** - Type checking
+- **pytest** - Testing framework
+- **pre-commit** - Automated code quality checks
+- **tbump** - Version management
+{% if cookiecutter.mkdocs == "y" -%}
+- **MkDocs** - Documentation
+{%- endif %}
+
+### Daily Development Commands
 
 ```bash
-# Install project dependencies
+# Install dependencies
 poetry install
 
 # Add a new dependency
 poetry add <package-name>
 
-# Add a development dependency
-poetry add --group dev <package-name>
-```
-
-### Code Quality and Testing
-
-```bash
-# Run all quality checks
-make check
-
 # Run tests
 make test
 
-# Run pre-commit hooks
-poetry run pre-commit run --all-files
-```
+# Run all quality checks (linting, type checking)
+make check
 
-### Code Formatting
-
-This project uses Black for code formatting:
-
-```bash
-# Format code with Black
+# Format code
 poetry run black .
 
-# Check formatting without making changes
-poetry run black --check .
+# Run pre-commit hooks manually
+poetry run pre-commit run -a
 ```
 
-### Version Management
-
-This project uses tbump for automated version management:
+{% if cookiecutter.mkdocs == "y" -%}
+### Documentation
 
 ```bash
-# Bump version to 1.2.3 (automatically commits and tags)
+# Serve documentation locally
+make docs
+
+# Build documentation
+poetry run mkdocs build
+```
+{%- endif %}
+
+### Version Bumping
+
+Use tbump for automated version management:
+
+```bash
+# Bump to specific version (commits and tags automatically)
 poetry run tbump 1.2.3
 
-# Dry run to see what would happen
+# Dry run to preview changes
 poetry run tbump --dry-run 1.2.3
-
-# Simple version bump with Poetry (no commit/tag)
-poetry version patch|minor|major
 ```
 
-**Simplified Version Bumping with tbump.sh:**
-
-Use the included `scripts/tbump.sh` script for easier semantic version bumping:
+**Using the tbump.sh helper script:**
 
 ```bash
 # Bump patch version (0.1.0 → 0.1.1)
 ./scripts/tbump.sh patch
 
-# Bump minor version with push (0.1.1 → 0.2.0)
+# Bump minor version (0.1.1 → 0.2.0)
 ./scripts/tbump.sh minor --push
 
-# Dry-run a major version bump (0.2.0 → 1.0.0)
+# Dry-run a major version bump
 ./scripts/tbump.sh major --dry-run
 ```
 
-The script automatically:
-- Gets the current version from tbump
-- Calculates the new version based on semantic versioning rules
-- Calls tbump with the appropriate version and flags
-- Supports `--push` to push changes and `--dry-run` for testing
+## Optional Tools
 
-### Custom Scripts
+The following tools are available but not required for basic development. Enable them during project creation or configure them later as needed.
 
-Example custom scripts are available in the `scripts/` directory. To enable them in pre-commit:
-
-1. Edit `.pre-commit-config.yaml`
-2. Uncomment the local hooks section
-3. Run `poetry run pre-commit install`
-
-### VSCode Integration
-
-This project includes VSCode settings for:
-- Black formatting on save
-- Ruff linting
-- pytest test discovery
-- Python interpreter configuration
-
-## Development Tools and Environment
-
-This template includes several powerful development tools to enhance your workflow:
-
-### Dependency Management with deptry
 {% if cookiecutter.deptry == 'y' -%}
+### Dependency Management (Deptry)
 
-[deptry](https://github.com/fpgmaas/deptry) is included to check for unused and missing dependencies:
+[Deptry](https://github.com/fpgmaas/deptry) detects unused and missing dependencies. Useful for keeping your dependencies clean.
 
 ```bash
-# Check for unused dependencies
-poetry run deptry .
-
-# Check with custom configuration
-poetry run deptry . --config pyproject.toml
+# Check for dependency issues
+poetry run deptry {% if cookiecutter.layout == "src" %}src{% else %}.{% endif %}
 ```
 
-Configure deptry in your `pyproject.toml`:
+Configure in `pyproject.toml`:
 ```toml
 [tool.deptry]
-skip_obsolete = false
-skip_missing = false
-skip_transitive = false
-skip_misplaced_dev = false
 ignore_missing = []
 ignore_obsolete = []
-ignore_transitive = []
-ignore_misplaced_dev = []
 ```
 {%- endif %}
 
-### Documentation with MkDocs
-{% if cookiecutter.mkdocs == 'y' -%}
+{% if cookiecutter.codecov == 'y' -%}
+### Code Coverage (Codecov)
 
-This project uses [MkDocs](https://www.mkdocs.org/) with Material theme for documentation:
+[Codecov](https://about.codecov.io/) provides detailed code coverage reports. Useful for tracking test coverage over time and in pull requests.
 
-```bash
-# Serve documentation locally
-poetry run mkdocs serve
+**Setup required:** Add `CODECOV_TOKEN` to your GitHub repository secrets. See [setup guide](https://apajon.github.io/cookiecutter-python-poetry-template/features/codecov/).
 
-# Build documentation
-poetry run mkdocs build
-
-# Deploy to GitHub Pages
-poetry run mkdocs gh-deploy
-```
-
-Documentation structure:
-- `docs/` - Documentation source files
-- `mkdocs.yml` - MkDocs configuration
-- Automatically generates API docs from docstrings
-- Material theme with search, navigation, and dark mode
-
-**Auto-documentation Generation:**
-The project includes an automated documentation generator that runs as a pre-commit hook:
-
-```bash
-# Manually generate documentation
-python scripts/generate_docs.py
-
-# Generate with individual module pages
-python scripts/generate_docs.py --individual
-
-# Update mkdocs navigation
-python scripts/generate_docs.py --update-nav
-```
-
-The generator automatically:
-- Discovers all Python modules in your package
-- Creates `docs/modules.md` with mkdocstrings references
-- Supports both src/ and flat project layouts
-- Runs automatically on every commit via pre-commit hooks
+Coverage runs automatically in CI/CD. View reports at `https://codecov.io/gh/{{cookiecutter.author_github_handle}}/{{cookiecutter.project_name}}`.
 {%- endif %}
 
-### Testing with tox
-
-[tox](https://tox.readthedocs.io/) provides testing across multiple Python versions:
-
-```bash
-# Run tests on all Python versions
-poetry run tox
-
-# Run tests on specific Python version
-poetry run tox -e py312
-
-# Run with coverage
-poetry run tox -e py312 -- --cov
-```
-
-The `tox.ini` configuration:
-- Tests on Python 3.12 and 3.13
-- Uses Poetry for dependency management
-- Runs pytest with coverage
-- Includes type checking with mypy/ty
-- Integrates with GitHub Actions for CI
-
-### Development Container (devcontainer)
-{% if cookiecutter.devcontainer == 'y' -%}
-
-The project includes a development container configuration for consistent development environments:
-
-**Features:**
-- Pre-configured Python 3.12 environment
-- Poetry pre-installed and configured
-- All development dependencies included
-- VSCode extensions for Python development
-- Git configuration and pre-commit hooks
-
-**Usage:**
-1. Open in GitHub Codespaces, or
-2. Use VSCode "Reopen in Container" command, or
-3. Use the Dev Containers extension
-
-**Configuration files:**
-- `.devcontainer/devcontainer.json` - Container configuration
-- `.devcontainer/Dockerfile` - Custom container setup (if needed)
-
-The devcontainer automatically:
-- Installs Poetry and dependencies
-- Sets up pre-commit hooks
-- Configures Python interpreter
-- Installs recommended VSCode extensions
-{%- endif %}
-
-### Docker Support
 {% if cookiecutter.dockerfile == 'y' -%}
+### Containerization (Docker)
 
-The included `Dockerfile` provides a production-ready container:
+A `Dockerfile` is included for containerized deployments. Useful for production deployment or ensuring consistent environments.
 
 ```bash
-# Build the Docker image
+# Build the image
 docker build -t {{cookiecutter.project_name}} .
 
 # Run the container
 docker run {{cookiecutter.project_name}}
-
-# Run with volume mount for development
-docker run -v $(pwd):/app {{cookiecutter.project_name}}
 ```
 
-**Dockerfile features:**
-- Based on Python 3.12 slim image
-- Poetry for dependency management
-- Multi-stage build for optimization
-- Non-root user for security
-- Optimized for production deployment
-
-**Build optimization:**
-- Dependencies installed before code copy
-- Poetry cache excluded from final image
-- Only production dependencies in final stage
+**Features:** Multi-stage build, non-root user, optimized for Poetry.
 {%- endif %}
+
+{% if cookiecutter.devcontainer == 'y' -%}
+### Development Container (VS Code)
+
+A `.devcontainer` configuration is included for use with VS Code, GitHub Codespaces, or other Dev Container-compatible tools. Useful for consistent development environments without local setup.
+
+**Usage:**
+- Open in GitHub Codespaces, or
+- In VS Code: "Reopen in Container"
+
+**Features:** Pre-configured Python, Poetry, and all extensions.
+{%- endif %}
+
+### Additional Development Options
+
+**Custom Scripts:** Example scripts are in `scripts/`. To enable in pre-commit, uncomment the local hooks section in `.pre-commit-config.yaml`.
+
+**VS Code Settings:** Included settings provide Black formatting on save, Ruff linting, and pytest integration.
+
+**Tox:** Multi-version testing is available via `poetry run tox`. See `tox.ini` for configuration.
 
 ## Releasing a new version
 
