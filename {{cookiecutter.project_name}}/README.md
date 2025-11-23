@@ -121,7 +121,7 @@ poetry run tbump 1.2.3
 poetry run tbump --dry-run 1.2.3
 ```
 
-**Using the tbump.sh helper script:**
+**Semantic version helper:** A `tbump.sh` script is included to simplify semantic versioning (patch/minor/major):
 
 ```bash
 # Bump patch version (0.1.0 → 0.1.1)
