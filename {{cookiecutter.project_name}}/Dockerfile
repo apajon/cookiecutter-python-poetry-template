@@ -1,21 +1,34 @@
-# Install uv
+# Install Poetry
 FROM python:3.12-slim
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Poetry
+RUN pip install poetry
+
+# Configure Poetry
+ENV POETRY_NO_INTERACTION=1 \
+    POETRY_VENV_IN_PROJECT=1 \
+    POETRY_CACHE_DIR=/tmp/poetry_cache
 
 # Change the working directory to the `app` directory
 WORKDIR /app
 
 # Copy the lockfile and `pyproject.toml` into the image
-COPY uv.lock /app/uv.lock
+COPY poetry.lock /app/poetry.lock
 COPY pyproject.toml /app/pyproject.toml
 
 # Install dependencies
-RUN uv sync --frozen --no-install-project
+RUN poetry install --only=main && rm -rf $POETRY_CACHE_DIR
 
 # Copy the project into the image
 COPY . /app
 
-# Sync the project
-RUN uv sync --frozen
+# Install the project
+RUN poetry install --only=main
 
-CMD [ "python", "{{cookiecutter.project_slug}}/foo.py" ]
+CMD [ "poetry", "run", "python", "{{cookiecutter.project_slug}}/foo.py" ]

@@ -14,9 +14,48 @@ repos:
       - id: end-of-file-fixer
       - id: trailing-whitespace
 
+  - repo: https://github.com/psf/black
+    rev: "24.10.0"
+    hooks:
+      - id: black
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: "v0.12.7"
     hooks:
       - id: ruff-check
-        args: [ --exit-non-zero-on-fix ]
-      - id: ruff-format
+        args: [--exit-non-zero-on-fix]
+
+{% if cookiecutter.type_checker == "mypy" %}
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: "v1.8.0"
+    hooks:
+      - id: mypy
+        args: [--install-types, --non-interactive]
+{% endif %}
+
+  - repo: local
+    hooks:
+      - id: generate-docs
+        name: Generate mkdocs documentation
+        entry: python ./scripts/generate_docs.py
+        language: system
+        files: \.py$
+        pass_filenames: false
+        description: Auto-generate mkdocs documentation from package structure
+
+# Example of additional local hooks for custom scripts (disabled by default)
+# Uncomment the following section to enable additional custom hooks:
+#
+#     - id: custom-bash-script
+#       name: Custom Bash Script
+#       entry: ./scripts/myscript.sh
+#       language: system
+#       files: \.py$
+#       # pass_filenames: false  # Uncomment if script doesn't need filenames
+#
+#     - id: custom-python-script
+#       name: Custom Python Script
+#       entry: python ./scripts/myscript.py
+#       language: python
+#       files: \.py$
+#       # pass_filenames: false  # Uncomment if script doesn't need filenames

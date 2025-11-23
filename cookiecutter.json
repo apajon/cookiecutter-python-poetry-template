@@ -4,7 +4,7 @@
   "author_github_handle": "fpgmaas",
   "project_name": "example-project",
   "project_slug": "{{cookiecutter.project_name|lower|replace('-', '_')}}",
-  "project_description": "This is a template repository for Python projects that use uv for their dependency management.",
+  "project_description": "This is a template repository for Python projects that use Poetry for their dependency management.",
   "layout": [
     "flat",
     "src"
