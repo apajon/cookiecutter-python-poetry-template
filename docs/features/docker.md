@@ -1,7 +1,7 @@
 # Containerization with Docker or Podman
 
 If `dockerfile` is set to `"y"`, a simple `Dockerfile` is added to the
-repository. The Dockerfile installs uv, sets up the environment, and runs
+repository. The Dockerfile installs Poetry, sets up the environment, and runs
 `foo.py` when executed.
 
 The container image can be built with:

@@ -84,4 +84,4 @@ Follow the prompts to configure your project. Once completed, a new directory co
 This project is partially based on [Audrey
 Feldroy\'s](https://github.com/audreyfeldroy)\'s great
 [cookiecutter-pypackage](https://github.com/audreyfeldroy/cookiecutter-pypackage)
-repository and [fpgmaas](https://github.com/fpgmaas)'s [cookiecutter-uv](https://github.com/fpgmaas/cookiecutter-uv) template.
+repository and [fpgmaas](https://github.com/fpgmaas)'s [cookiecutter-poetry](https://github.com/fpgmaas/cookiecutter-poetry) template.

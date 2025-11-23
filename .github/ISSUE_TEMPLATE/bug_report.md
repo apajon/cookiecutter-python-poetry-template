@@ -26,7 +26,7 @@ Steps to reproduce the behavior:
 
 - OS: e.g. [Ubuntu 18.04]
 - Language Version: [e.g. Python 3.8]
-- Virtual environment: [e.g. uv 1.0.0]
+- Virtual environment: [e.g. Poetry 1.8.0]
 
 **Additional context**
 

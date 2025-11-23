@@ -45,7 +45,7 @@ If you are proposing a new feature:
 # Get Started!
 
 Ready to contribute? Here's how to set up `{{cookiecutter.project_name}}` for local development.
-Please note this documentation assumes you already have `uv` and `Git` installed and ready to go.
+Please note this documentation assumes you already have `Poetry` and `Git` installed and ready to go.
 
 1. Fork the `{{cookiecutter.project_name}}` repo on GitHub.
 
@@ -65,13 +65,13 @@ cd {{cookiecutter.project_name}}
 Then, install and activate the environment with:
 
 ```bash
-uv sync
+poetry install
 ```
 
 4. Install pre-commit to run linters/formatters at commit time:
 
 ```bash
-uv run pre-commit install
+poetry run pre-commit install
 ```
 
 5. Create a branch for local development:
@@ -100,7 +100,7 @@ make test
    This will run the tests across different versions of Python:
 
 ```bash
-tox
+poetry run tox
 ```
 
 This requires you to have multiple versions of python installed.

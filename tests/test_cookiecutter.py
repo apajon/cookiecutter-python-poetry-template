@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 import os
-import shlex
-import subprocess
 
 from tests.utils import file_contains_text, is_valid_yaml, run_within_dir
 

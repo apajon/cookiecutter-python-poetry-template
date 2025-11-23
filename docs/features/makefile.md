@@ -6,10 +6,10 @@ available commands that are available can be obtained by running
 available:
 
 ```
-install              Install the uv environment and install the pre-commit hooks
+install              Install the Poetry environment and install the pre-commit hooks
 check                Lint and check code by running ruff, mypy and deptry.
 test                 Test the code with pytest
-build                Build wheel file using uv
+build                Build wheel file using Poetry
 clean-build          clean build artifacts
 publish              publish a release to pypi.
 build-and-publish    Build and publish.
