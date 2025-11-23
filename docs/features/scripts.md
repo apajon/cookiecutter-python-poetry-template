@@ -41,15 +41,15 @@ import sys
 def main():
     """Main function that prints script execution and arguments."""
     print("[myscript.py] Script Python exécuté")
-    
+
     if len(sys.argv) > 1:
         print(f"Arguments reçus: {sys.argv[1:]}")
     else:
         print("Aucun argument fourni")
-    
+
     # Add your custom Python logic here
     # For example: code analysis, custom linting, or file processing
-    
+
     return 0
 
 if __name__ == "__main__":
@@ -120,7 +120,7 @@ poetry run pre-commit install
   entry: ./scripts/myscript.sh
 
 # For Python scripts
-- id: my-script  
+- id: my-script
   language: python
   entry: python ./scripts/myscript.py
 

@@ -38,7 +38,7 @@ Here are some useful Poetry commands:
 # Add a production dependency
 poetry add requests
 
-# Add a development dependency  
+# Add a development dependency
 poetry add --group dev pytest
 
 # Remove a dependency
