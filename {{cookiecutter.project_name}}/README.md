@@ -48,7 +48,7 @@ git commit -m 'Fix formatting issues'
 git push origin main
 ```
 
-You are now ready to start development! The CI/CD pipeline will run on pull requests, merges to main, and new releases.
+You are now ready to start development! The CI/CD pipeline will run on pull requests, merge to main, and new releases.
 
 {% if cookiecutter.publish_to_pypi == "y" -%}
 To finalize publishing to PyPI, see [here](https://apajon.github.io/cookiecutter-python-poetry-template/features/publishing/#set-up-for-pypi).
@@ -121,7 +121,7 @@ poetry run tbump 1.2.3
 poetry run tbump --dry-run 1.2.3
 ```
 
-**Semantic version helper:** A `tbump.sh` script is included to simplify semantic versioning (patch/minor/major):
+**Convenience script:** A `tbump.sh` helper script is included in `scripts/` to simplify semantic versioning (patch/minor/major):
 
 ```bash
 # Bump patch version (0.1.0 → 0.1.1)
@@ -183,7 +183,11 @@ docker build -t {{cookiecutter.project_name}} .
 docker run {{cookiecutter.project_name}}
 ```
 
-The Dockerfile uses Poetry for dependency management with multi-stage builds for smaller images, includes a non-root user for security, and optimizes caching of dependencies.
+**Features:**
+- Multi-stage build for smaller images
+- Poetry for dependency management
+- Non-root user for security
+- Optimized dependency caching
 {%- endif %}
 
 {% if cookiecutter.devcontainer == 'y' -%}
