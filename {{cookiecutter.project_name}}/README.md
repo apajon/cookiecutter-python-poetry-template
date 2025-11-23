@@ -192,7 +192,7 @@ The Dockerfile uses Poetry for dependency management with multi-stage builds for
 A `.devcontainer` configuration is included for use with VS Code, GitHub Codespaces, or other Dev Container-compatible tools. Useful for consistent development environments without local setup.
 
 **Usage:**
-- Open in GitHub Codespaces, or
+- Open in GitHub Codespaces
 - In VS Code: "Reopen in Container"
 
 **Features:** Pre-configured Python, Poetry, and all extensions.
