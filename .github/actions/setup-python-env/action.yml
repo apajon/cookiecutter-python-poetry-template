@@ -6,10 +6,10 @@ inputs:
     description: "Python version to use"
     required: true
     default: "3.12"
-  uv-version:
-    description: "uv version to use"
+  poetry-version:
+    description: "Poetry version to use"
     required: true
-    default: "0.6.14"
+    default: "1.8.0"
 
 runs:
   using: "composite"
@@ -18,13 +18,26 @@ runs:
       with:
         python-version: ${{ inputs.python-version }}
 
-    - name: Install uv
-      uses: astral-sh/setup-uv@v2
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
       with:
-        version: ${{ inputs.uv-version }}
-        enable-cache: "true"
-        cache-suffix: ${{ matrix.python-version }}
+        version: ${{ inputs.poetry-version }}
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+        installer-parallel: true
+
+    - name: Load cached venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v4
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ inputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
     - name: Install Python dependencies
-      run: uv sync --frozen
+      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      run: poetry install --no-interaction --no-root
+      shell: bash
+
+    - name: Install project
+      run: poetry install --no-interaction
       shell: bash

@@ -1,10 +1,10 @@
 # Compatibility testing with Tox
 
-If `tox` is set to `"y"` project uses [tox-uv](https://github.com/tox-dev/tox-uv)
+If `tox` is set to `"y"` project uses [tox](https://tox.readthedocs.io/)
 to test compatibility with multiple Python versions. You can run `tox` locally:
 
 ```sh
-uv run tox
+poetry run tox
 ```
 
 By default, the project is tested with Python `3.9`, `3.10`, `3.11`, `3.12` and `3.13`.
