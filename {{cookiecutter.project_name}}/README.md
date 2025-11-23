@@ -145,7 +145,11 @@ The following tools are available but not required for basic development. Enable
 
 ```bash
 # Check for dependency issues
-poetry run deptry {% if cookiecutter.layout == "src" %}src{% else %}.{% endif %}
+{% if cookiecutter.layout == "src" -%}
+poetry run deptry src
+{%- else -%}
+poetry run deptry .
+{%- endif %}
 ```
 
 Configure in `pyproject.toml`:
@@ -179,7 +183,7 @@ docker build -t {{cookiecutter.project_name}} .
 docker run {{cookiecutter.project_name}}
 ```
 
-**Features:** Multi-stage build, non-root user, optimized for Poetry.
+The Dockerfile uses Poetry for dependency management with multi-stage builds for smaller images, includes a non-root user for security, and optimizes caching of dependencies.
 {%- endif %}
 
 {% if cookiecutter.devcontainer == 'y' -%}
